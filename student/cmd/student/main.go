@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"os"
+	"student/pkg/bootstrap"
 
 	"student/internal/conf"
 
@@ -10,7 +11,6 @@ import (
 	"github.com/go-kratos/kratos/v2/config"
 	"github.com/go-kratos/kratos/v2/config/file"
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 	"github.com/go-kratos/kratos/v2/transport/http"
 
@@ -30,7 +30,7 @@ var (
 )
 
 func init() {
-	flag.StringVar(&flagconf, "conf", "../../configs", "config path, eg: -conf config.yaml")
+	flag.StringVar(&flagconf, "conf", "./configs", "config path, eg: -conf config.yaml")
 }
 
 func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server) *kratos.App {
@@ -49,7 +49,18 @@ func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server) *kratos.App {
 
 func main() {
 	flag.Parse()
-	logger := log.With(log.NewStdLogger(os.Stdout),
+
+	err := bootstrap.NewConfig()
+	if err != nil {
+		panic("load config error: " + err.Error())
+	}
+	logger, logCleanup := bootstrap.NewLogger()
+	if logger == nil {
+		panic("logger is nil")
+	}
+	defer logCleanup()
+
+	/*logger := log.With(log.NewStdLogger(os.Stdout),
 		"ts", log.DefaultTimestamp,
 		"caller", log.DefaultCaller,
 		"service.id", id,
@@ -57,7 +68,7 @@ func main() {
 		"service.version", Version,
 		"trace.id", tracing.TraceID(),
 		"span.id", tracing.SpanID(),
-	)
+	)*/
 	c := config.New(
 		config.WithSource(
 			file.NewSource(flagconf),

@@ -24,7 +24,10 @@ type Data struct {
 func NewGormDB(c *conf.Data) (*gorm.DB, error) {
 	dsn := c.Database.Source
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
+		Logger: logger.Default.LogMode(logger.Info), //打印所有执行的sql语句
+		//NamingStrategy: schema.NamingStrategy{
+		//	SingularTable: true, // 使用单数表名
+		//},
 	})
 	if err != nil {
 		return nil, err
