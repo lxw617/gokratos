@@ -8,6 +8,7 @@ require (
 	github.com/go-kratos/kratos/contrib/log/zap/v2 v2.0.0-20230322031714-3d1af9af3899
 	github.com/go-kratos/kratos/v2 v2.6.1
 	github.com/google/wire v0.5.0
+	github.com/hoisie/mustache v0.0.0-20160804235033-6375acf62c69
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/viper v1.15.0
 	go.uber.org/automaxprocs v1.5.1
@@ -15,7 +16,6 @@ require (
 	google.golang.org/genproto v0.0.0-20221227171554-f9683d7f8bef
 	google.golang.org/grpc v1.52.0
 	google.golang.org/protobuf v1.28.1
-	gorm.io/driver/mysql v1.4.7
 	gorm.io/gorm v1.24.6
 )
 
@@ -50,4 +50,5 @@ require (
 	golang.org/x/text v0.7.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	gorm.io/driver/mysql v1.4.7 // indirect
 )

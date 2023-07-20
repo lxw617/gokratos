@@ -23,7 +23,7 @@ func NewLogger() (logger klog.Logger, cleanup func()) {
 		return nil, nil
 	}
 
-	// 日日志初始化
+	// 日志初始化
 	localIP, _ := util.GetLocalIP()
 	id, _ := os.Hostname()
 	logger = klog.With(logger,

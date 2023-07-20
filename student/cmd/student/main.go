@@ -30,7 +30,7 @@ var (
 )
 
 func init() {
-	flag.StringVar(&flagconf, "conf", "./configs", "config path, eg: -conf config.yaml")
+	flag.StringVar(&flagconf, "conf", "./configs/config.yaml", "config path, eg: -conf config.yaml")
 }
 
 func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server) *kratos.App {
@@ -92,6 +92,7 @@ func main() {
 	defer cleanup()
 
 	// start and wait for stop signal
+	//优雅关闭：追踪资源，阻止新来资源和尽可能多的释放没有来得及被处理的资源，尽可能保证请求被处理的情况下释放资源
 	if err := app.Run(); err != nil {
 		panic(err)
 	}

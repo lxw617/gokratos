@@ -25,7 +25,7 @@ func NewStudentService(stu *biz.StudentUsecase, logger log.Logger) *StudentServi
 }
 
 func (s *StudentService) CreateStudent(ctx context.Context, req *pb.CreateStudentRequest) (*pb.CreateStudentReply, error) {
-	stu, err := s.student.Create(ctx, &biz.Student{
+	_, err := s.student.Create(ctx, &biz.Student{
 		Name:   req.Name,
 		Info:   req.Info,
 		Status: req.Status,
@@ -33,12 +33,7 @@ func (s *StudentService) CreateStudent(ctx context.Context, req *pb.CreateStuden
 	if err != nil {
 		return nil, err
 	}
-	return &pb.CreateStudentReply{
-		Id:     stu.ID,
-		Status: stu.Status,
-		Name:   stu.Name,
-		Info:   stu.Info,
-	}, nil
+	return nil, nil
 }
 
 func (s *StudentService) UpdateStudent(ctx context.Context, req *pb.UpdateStudentRequest) (*pb.UpdateStudentReply, error) {

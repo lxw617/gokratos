@@ -6,5 +6,6 @@ const (
 	LOGGER_LOGRUS = "logger_logrus"
 
 	MODE_lOCAL   = "local"
-	MODE_DEFAULT = "default"
+	MODE_DEFAULT = "dev"
+	MODE_TEST    = "test"
 )
